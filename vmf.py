@@ -1,7 +1,6 @@
 #vector median filter
 import cv2
 import sys
-import array 
 import numpy as np
 
 def euclidian_dist(v1, v2):
@@ -54,31 +53,34 @@ def get_median(win_vectors):
             median = win_vectors[i]
     return median
     
-def vmf():
+def vmf(fileName):
     #win_size = 3
-    img = cv2.imread(sys.argv[1])
-    hight, width = img.shape[:2]
-    output_img = np.copy(img)
-    print("image resolution :", width ,"x" ,hight)
-    for row in range(1,hight-1):
-        print("working on row:", row, end = "\r")
-        for col in range(1,width-1):
-            #calculate lowest median
-            win_vectors = []
-            for win_r in range(row-1,row+2):
-                for win_c in range(col-1, col+2):
-                    win_vectors.append(img[win_r][win_c])
-            output_img[row][col] = get_median(win_vectors)
-    cv2.imshow('input', img)
-    cv2.imshow('output', output_img)
-    cv2.waitKey()
-    cv2.imwrite("vmf_euclidian_.ppm", output_img)
+    try:   
+        img = cv2.imread(fileName)
+        height, width = img.shape[:2]
+        output_img = np.copy(img)
+        print("image resolution :", width ,"x" ,height)
+        for row in range(1,height-1):
+            print("working on row:", row, "/", height, end = "\r")
+            for col in range(1,width-1):
+                #calculate lowest median
+                win_vectors = []
+                for win_r in range(row-1,row+2):
+                    for win_c in range(col-1, col+2):
+                        win_vectors.append(img[win_r][win_c])
+                output_img[row][col] = get_median(win_vectors)
+        cv2.imshow('input', img)
+        cv2.imshow('output', output_img)
+        cv2.waitKey()
+        cv2.imwrite("vmf_euclidian_.ppm", output_img)
+    except AttributeError:
+        print("Invalid file. Please check the file name you have entered")        
     
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
+    #applying median filter
+    try:
+        vmf(sys.argv[1])
+    except IndexError:
         print("error : please provide file name as command line argument")
         print("try : python", sys.argv[0], "<image_file_name>")
-    else:
-        #applying median filter
-        vmf()
