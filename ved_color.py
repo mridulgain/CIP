@@ -39,10 +39,10 @@ def ved_color(img):
 
 
 if __name__ == '__main__':
-    #applying median filter
+    #applying edge detection
     try:
         img = cv2.imread(sys.argv[1])
-        ved_gray(img)
+        ved_color(img)
     except IndexError:
         print("error : please provide file name as command line argument")
         print("try : python", sys.argv[0], "<image_file_name>")

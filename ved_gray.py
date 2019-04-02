@@ -36,7 +36,7 @@ def ved_gray(img):
         print("Invalid file. Please check the file name you have entered")
 
 if __name__ == '__main__':
-    #applying median filter
+    #applying edge detection
     try:
         img = cv2.imread(sys.argv[1])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)####
