@@ -72,7 +72,7 @@ def vmf(fileName):
         cv2.imshow('input', img)
         cv2.imshow('output', output_img)
         cv2.waitKey()
-        cv2.imwrite("vmf_euclidian_.ppm", output_img)
+        #cv2.imwrite("vmf_euclidian_.ppm", output_img)
     except AttributeError:
         print("Invalid file. Please check the file name you have entered")        
     
